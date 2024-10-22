@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react'
 import { Button, ButtonProps } from '@rneui/base'
-import { StyleSheet } from 'react-native'
+import { StyleProp, StyleSheet, TextStyle } from 'react-native'
 
 interface Props extends ButtonProps {
-    variant?: 'primary' | "danger" | "success"
+    variant?: 'primary' | "danger" | "success",
+    customInputStyle?: StyleProp<TextStyle>
 }
 
-const index = ({ variant = 'primary', ...props }: Props) => {
+const index = ({ variant = 'primary', customInputStyle, ...props }: Props) => {
 
     const createdVariant = useMemo(() => {
         switch (variant) {
@@ -53,7 +54,7 @@ const index = ({ variant = 'primary', ...props }: Props) => {
     }, [])
 
     return (
-        <Button {...props} buttonStyle={[createdVariant.button, { borderRadius: 6, height: 50 }]} titleStyle={createdVariant?.title} />
+        <Button {...props} buttonStyle={[createdVariant.button, { borderRadius: 6, height: 50 }, customInputStyle]} titleStyle={createdVariant?.title} />
     )
 }
 
