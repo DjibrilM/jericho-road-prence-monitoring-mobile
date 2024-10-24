@@ -1,15 +1,22 @@
 import React from 'react'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 import { View, Text, Image, TouchableOpacity } from '../tailwind'
 import { CurrentAccount } from '../../lib/util/types';
+import routes from '../../lib/util/routes';
 
 
 
 
-const Agent: React.FC<CurrentAccount> = ({ firstName, secondName, profileImageUrl }) => {
+const Agent: React.FC<CurrentAccount> = ({ firstName, secondName, profileImageUrl, ...props }) => {
+    const { navigate } = useNavigation() as any;
     return (
-        <TouchableOpacity className='bg-white flex-row mb-2 justify-between items-center rounded-xl border border-black/10  w-full p-3'>
+        <TouchableOpacity onPress={() => navigate(routes.agentProfile as any,
+            {
+                data: { ...props, firstName, secondName, profileImageUrl }
+            })}
+            className='bg-white flex-row mb-2 justify-between items-center rounded-xl border border-black/10  w-full p-3'>
             <View className='flex-row items-center gap-3'>
                 <View style={{ overflow: 'hidden' }} className='rounded-full overflow-hidden items-center justify-center  h-10 w-10 border-slate-300 border'>
                     <Image className='w-full h-full object-cover absolute rounded-full' source={{ width: 50, height: 50, uri: profileImageUrl, cache: 'force-cache' }} />

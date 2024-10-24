@@ -9,6 +9,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Profile from "../screens/profile";
 import agents from "../screens/agents";
 import Scan from "../screens/scan";
+import AgentProfile from "../screens/AgentProfile";
 
 import Login from "../screens/login";
 import routes from "../lib/util/routes";
@@ -92,6 +93,11 @@ const Navigation = () => {
                     options={{ headerShown: false }}
                     name={routes.login}
                     component={Login}
+                />
+                <Stack.Screen
+                    options={{ headerShown: false }}
+                    name={routes.agentProfile}
+                    component={AgentProfile}
                 />
             </Stack.Navigator>
         </NavigationContainer>

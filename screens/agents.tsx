@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { RefreshControl, StatusBar } from 'react-native'
+import { ActivityIndicator, RefreshControl, StatusBar } from 'react-native'
 
 import Visible from '../components/common/Visibility'
 import { ScrollView, SafeAreaView, Text, View, Image } from '../components/tailwind'
@@ -17,7 +17,8 @@ const Agents = () => {
             <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
             <ScrollView refreshControl={
                 <RefreshControl refreshing={isRefetching || isLoading} onRefresh={refetch} />
-            } className='px-3 flex-1 pt-10'>
+            } className='px-3 flex-1'>
+                <View className='h-4' />
                 <Visible condition={!!data}>
                     {data?.map((account) => (<Agent {...account} />))}
                 </Visible>
@@ -28,6 +29,12 @@ const Agents = () => {
                         <Image className='h-28 w-28' source={require("../assets/images/server.png")} />
                         <Text className='mt-5'>Failed to load agents ! Please retry</Text>
                         <Button loading={isRefetching} customInputStyle={{ width: 100, marginTop: 10, marginVertical: 'auto', position: "relative" }} onPress={() => refetch()} title={'Retry'} />
+                    </View>
+                </Visible>
+
+                <Visible condition={isLoading || isRefetching}>
+                    <View className='justify-center items-center'>
+                        <ActivityIndicator size={30} />
                     </View>
                 </Visible>
             </ScrollView>
